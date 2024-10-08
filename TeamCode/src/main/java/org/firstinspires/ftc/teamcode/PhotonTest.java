@@ -1,5 +1,4 @@
 package org.firstinspires.ftc.teamcode;
-import com.outoftheboxrobotics.photoncore.hardware.motor.PhotonDcMotor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -8,7 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="AnsweredPrayers", group="Linear OpMode")
+@TeleOp(name="PhotonTest", group="Linear OpMode")
 
 public class PhotonTest extends LinearOpMode {
 
@@ -18,34 +17,14 @@ public class PhotonTest extends LinearOpMode {
     // Count the number of times that "y" is pressed
     int yCounter=0;
 
-    private PhotonDcMotor frontLeft = null;
-    private PhotonDcMotor frontRight = null;
-    private PhotonDcMotor backLeft = null;
-    private PhotonDcMotor backRight = null;
-    private PhotonDcMotor slideL = null;
-    private PhotonDcMotor slideR = null;
-    private PhotonDcMotor Intake = null;
-    private Servo leftArm = null;
-    private Servo rightArm = null;
-    private Servo clawRotate = null;
-    private CRServo pixelWheel = null;
-    private Servo leftClamp = null;
-    private Servo rightClamp = null;
+    private DcMotor frontLeft = null;
+    private DcMotor frontRight = null;
+    private DcMotor backLeft = null;
+    private DcMotor backRight = null;
+    private DcMotorEx slideL = null;
+    private DcMotorEx slideR = null;
 
-    public void Scoring() {
-        leftArm.setDirection(Servo.Direction.FORWARD);
-        rightArm.setDirection(Servo.Direction.FORWARD);
-        clawRotate.setPosition(.6);
-        leftArm.setPosition(.6);
-        rightArm.setPosition(.6);
-    }
-    public void Collection() {
-        leftArm.setDirection(Servo.Direction.REVERSE);
-        rightArm.setDirection(Servo.Direction.REVERSE);
-        leftArm.setPosition(.03);
-        rightArm.setPosition(.07);
-        clawRotate.setPosition(.80);
-    }
+
     @Override
     public void runOpMode() {
         double slidesDefaultPower = 1;
@@ -58,11 +37,6 @@ public class PhotonTest extends LinearOpMode {
         backLeft = hardwareMap.get(DcMotorEx.class, "Front Left");
         backRight = hardwareMap.get(DcMotorEx.class, "Front Right");
 
-        //Bucket Servos
-        leftArm = hardwareMap.get(Servo.class,"LeftArm");
-        rightArm = hardwareMap.get(Servo.class, "RightArm");
-        clawRotate = hardwareMap.get(Servo.class, "clawRotate");
-        pixelWheel = hardwareMap.get(CRServo.class, "pixelWheel");
 
 
         // Linear slides
@@ -70,18 +44,12 @@ public class PhotonTest extends LinearOpMode {
         slideL = hardwareMap.get(DcMotorEx.class, "SlideL");
         slideR = hardwareMap.get(DcMotorEx.class, "SlideR");
 
-        // Intake Motors
-        Intake = hardwareMap.get(DcMotorEx.class, "Intake");
-
-        // Intake Servos
-        leftClamp  = hardwareMap.get(Servo.class, "clampL");
-        rightClamp = hardwareMap.get(Servo.class, "clampR");
 
 
 //        // Plane Launcher
 //        // Servos
 
-        CRServo drone = hardwareMap.get(CRServo.class, "Drone Launcher");
+
 
         // This is on the expansion hub
 
@@ -99,7 +67,6 @@ public class PhotonTest extends LinearOpMode {
         backRight.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         slideL.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         slideR.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        Intake.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
         // Allows slides to be set in a position
         slideL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -139,19 +106,8 @@ public class PhotonTest extends LinearOpMode {
                 PowerCoefficient = 0.25;
             }
 
-            /*
-            // Extra accuracy mode GamePad 2
-            if (gamepad2.left_bumper) {
-                PowerCoefficient2 = 0.25;
-            }
 
-            // Makes the motors move at half speed GamePad2
-            if (gamepad2.right_bumper) {
-                PowerCoefficient2 = .5;
-            }
-            */
 
-            drone.setPower(0);
             if (slideR.getCurrentPosition() > 10 && slideL.getCurrentPosition() > 10) {
                 slideR.setPower(slidesDefaultPower);
                 slideL.setPower(slidesDefaultPower);
@@ -192,14 +148,11 @@ public class PhotonTest extends LinearOpMode {
                 sleep(150);
             }
             if(gamepad2.a){
-                Collection();
+
                 slideHeight = 0;
                 yCounter =0;
             }
-            // For Drone Launcher
-            if(gamepad2.ps){
-                drone.setPower(-1);
-            }
+
 
             // change positions when y is pressed
             // TODO: set the slide heights
@@ -207,41 +160,22 @@ public class PhotonTest extends LinearOpMode {
                 case 1:
                     slideHeight = 1300;
                     sleep(50);
-                    Scoring();
+
                     break;
                 case 2:
                     slideHeight = 1750;
                     sleep(50);
-                    Scoring();
+
                     break;
                 case 3:
                     slideHeight = 2250;
                     sleep(50);
-                    Scoring();
+
                     break;
                 case 4:
                     yCounter = 0;
                     break;
             }
-
-
-
-            //clamps
-            //TODO: set positions
-            if (gamepad2.left_bumper) {
-                leftClamp.setPosition(.55);
-                // sleep(75);
-                rightClamp.setPosition(.25);
-
-            }
-            if (gamepad2.right_bumper) {
-                rightClamp.setPosition(1);
-                leftClamp.setPosition(1);
-            }
-
-
-
-
 
 
             frontLeft.setPower(leftFrontPower*PowerCoefficient);
@@ -251,9 +185,6 @@ public class PhotonTest extends LinearOpMode {
 
             slideL.setTargetPosition(-slideHeight);
             slideR.setTargetPosition(slideHeight);
-
-            Intake.setPower(intakePower*PowerCoefficient);
-            pixelWheel.setPower(intakePower*PowerCoefficient);
 
 
             slideL.setPower(-1);
