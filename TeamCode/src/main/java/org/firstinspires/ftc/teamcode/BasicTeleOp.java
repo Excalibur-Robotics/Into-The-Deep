@@ -34,10 +34,10 @@ public class BasicTeleOp extends LinearOpMode {
         // Initialize the hardware variables. Note that the strings used here must correspond
         // to the names assigned during the robot configuration step on the DS or RC devices.
         //Drive motors
-        frontLeft = hardwareMap.get(DcMotorEx.class, "Rear Left");
-        frontRight = hardwareMap.get(DcMotorEx.class, "Rear Right");
-        backLeft = hardwareMap.get(DcMotorEx.class, "Front Left");
-        backRight = hardwareMap.get(DcMotorEx.class, "Front Right");
+        frontLeft = hardwareMap.get(DcMotorEx.class, "Front Left");
+        frontRight = hardwareMap.get(DcMotorEx.class, "Front Right");
+        backLeft = hardwareMap.get(DcMotorEx.class, "Rear Left");
+        backRight = hardwareMap.get(DcMotorEx.class, "Rear Right");
 
 
 
