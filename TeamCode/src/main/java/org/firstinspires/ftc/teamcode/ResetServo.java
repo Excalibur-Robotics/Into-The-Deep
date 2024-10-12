@@ -32,10 +32,12 @@ public class ResetServo extends LinearOpMode {
             if (gamepad1.a) {
                 // Reset the servo
                 servo.setPosition(0);
+
             }
             if (gamepad1.b) {
                 // Move the servo to the other position
                 servo.setPosition(1);
+
             }
 
 
