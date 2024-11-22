@@ -26,5 +26,17 @@ public class HardwareMapFTC {
         RBack  = TeleOpMap.get(DcMotor.class, "BackRight");
         LSlide = TeleOpMap.get(DcMotorEx.class, "LeftSlide");
         RSlide = TeleOpMap.get(DcMotorEx.class, "RightSlide");
+
+
+        LFront.setDirection(DcMotor.Direction.REVERSE);
+        LBack.setDirection(DcMotor.Direction.REVERSE);
+        LFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        LBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        RFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        RBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        LSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        RSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+
     }
 }
