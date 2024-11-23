@@ -15,9 +15,8 @@ public class HardwareMapFTC {
     public DcMotorEx RSlide     = null;
     public Servo     LExtendo   = null;
     public Servo     RExtendo   = null;
-    public Servo     LArm       = null;
-    public Servo     RArm       = null;
     public Servo     BucketLid  = null;
+    public Servo     BucketRotate = null;
     public Servo     Claw       = null;
     public Servo     ClawRotate = null;
 
@@ -37,9 +36,8 @@ public class HardwareMapFTC {
         RSlide     = TeleOpMap.get(DcMotorEx.class, "RightSlide");
         LExtendo   = TeleOpMap.get(Servo.class,    "LeftExtendo");
         RExtendo   = TeleOpMap.get(Servo.class,   "RightExtendo");
-        LArm       = TeleOpMap.get(Servo.class,        "LeftArm");
-        RArm       = TeleOpMap.get(Servo.class,       "RightArm");
         BucketLid  = TeleOpMap.get(Servo.class,      "BucketLid");
+        BucketRotate = TeleOpMap.get(Servo.class, "BucketRotate");
         Claw       = TeleOpMap.get(Servo.class,           "Claw");
         ClawRotate = TeleOpMap.get(Servo.class,      "ClawRotate");
 

@@ -22,19 +22,14 @@ public class MecanumDrive extends LinearOpMode {
     boolean Hang = false;
 
 
-//    public void Scoring() {
-//        leftArm.setDirection(Servo.Direction.FORWARD);
-//        rightArm.setDirection(Servo.Direction.FORWARD);
-//        clawRotate.setPosition(.6);
-//        leftArm.setPosition(.6);
-//        rightArm.setPosition(.6);
-//    }
+    public void Scoring() {
+        robot.BucketRotate.setDirection(Servo.Direction.FORWARD);
+        robot.BucketRotate.setPosition(1);
+    }
     public void Collection() {
-        robot.LArm.setDirection(Servo.Direction.REVERSE);
-        robot.RArm.setDirection(Servo.Direction.REVERSE);
-        robot.LArm.setPosition(.03);
-        robot.RArm.setPosition(.07);
-        robot.BucketLid.setPosition(.80);
+        robot.BucketRotate.setDirection(Servo.Direction.REVERSE);
+        robot.BucketRotate.setPosition(0);
+        robot.BucketLid.setPosition(0);
     }
 
 
@@ -93,9 +88,9 @@ public class MecanumDrive extends LinearOpMode {
 
 
             // input: theta, power, and turn
-            double x = gamepad1.left_stick_x;
-            double y = -gamepad1.left_stick_y;
-            double turn = gamepad1.right_trigger - gamepad1.left_trigger;
+            double x = -gamepad1.left_stick_x;
+            double y = gamepad1.left_stick_y;
+            double turn = -(gamepad1.right_trigger - gamepad1.left_trigger);
 
             double theta = Math.atan2(y, x);
             double power = Math.hypot(x, y);
@@ -115,15 +110,21 @@ public class MecanumDrive extends LinearOpMode {
                 leftRearPower /= power + turn;
                 rightRearPower /= power + turn;
             }
-            if (gamepad1.dpad_up) {
+            if (gamepad2.dpad_up) {
                 // Extendo
+                robot.LExtendo.setPosition(1);
+                robot.RExtendo.setPosition(0);
+            }
+            if (gamepad2.dpad_down) {
+                // Retracto
                 robot.LExtendo.setPosition(0);
                 robot.RExtendo.setPosition(1);
             }
-            if (gamepad1.dpad_down) {
-                // Retracto
-                robot.LExtendo.setPosition(1);
-                robot.RExtendo.setPosition(0);
+            if(gamepad2.dpad_left){
+                robot.ClawRotate.setPosition(1);
+            }
+            if(gamepad2.dpad_right){
+                robot.ClawRotate.setPosition(0.35);
             }
 
             // TODO: Replace this section/method of slide positioning with a PID Controller
@@ -139,10 +140,32 @@ public class MecanumDrive extends LinearOpMode {
                 sleep(150);
             }
             if(gamepad2.a){
-                Collection();
                 slideHeight = 0;
+                Collection();
                 yCounter =0;
             }
+            if (gamepad2.right_trigger > 0.5) {
+                robot.Claw.setPosition(0.5);
+
+            }
+            if (gamepad2.left_trigger > 0.5) {
+                robot.Claw.setPosition(0);
+            }
+            if (gamepad2.b) {
+                // Close bucket
+                robot.BucketLid.setPosition(1);
+            }
+            if (gamepad2.x) {
+                robot.BucketLid.setPosition(-1);
+
+            }
+            if(gamepad2.left_bumper){
+                robot.BucketRotate.setPosition(0);
+            }
+            if(gamepad2.right_bumper){
+                robot.BucketRotate.setPosition(1);
+            }
+
 
 
             // change positions when y is pressed
@@ -156,12 +179,12 @@ public class MecanumDrive extends LinearOpMode {
                 case 2:
                     slideHeight = 1750;
                     sleep(50);
-                   // Scoring();
+
                     break;
                 case 3:
-                    slideHeight = 2250;
+                    slideHeight = 2750;
                     sleep(50);
-                   // Scoring();
+
                     break;
                 case 4:
                     yCounter = 0;
