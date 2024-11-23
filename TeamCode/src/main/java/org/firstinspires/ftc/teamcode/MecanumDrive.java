@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="PushBot", group="Linear OpMode")
+@TeleOp(name="BucketBot", group="Linear OpMode")
 
 public class MecanumDrive extends LinearOpMode {
 
@@ -16,11 +16,31 @@ public class MecanumDrive extends LinearOpMode {
 
     HardwareMapFTC robot = new HardwareMapFTC();
 
+    // TODO: Replace this section/method of slide positioning with a PID Controller
+    int yCounter = 0;
     //Make robot stay up while undergoing the hanging operation
     boolean Hang = false;
 
+
+//    public void Scoring() {
+//        leftArm.setDirection(Servo.Direction.FORWARD);
+//        rightArm.setDirection(Servo.Direction.FORWARD);
+//        clawRotate.setPosition(.6);
+//        leftArm.setPosition(.6);
+//        rightArm.setPosition(.6);
+//    }
+    public void Collection() {
+        robot.LArm.setDirection(Servo.Direction.REVERSE);
+        robot.RArm.setDirection(Servo.Direction.REVERSE);
+        robot.LArm.setPosition(.03);
+        robot.RArm.setPosition(.07);
+        robot.BucketLid.setPosition(.80);
+    }
+
+
     @Override
     public void runOpMode() {
+        double slidesDefaultPower = 1;
 
         // Initialize the hardware variables from the HardwareMapFTC class.
         robot.init(hardwareMap);
@@ -32,9 +52,9 @@ public class MecanumDrive extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
+        // TODO: Replace this section/method of slide positioning with a PID Controller
         // Variable for the hang slides, holds the current position of the slides.
         int slideHeight = 0;
-
         // Reset the hang slide encoders
         robot.LSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.RSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -105,16 +125,81 @@ public class MecanumDrive extends LinearOpMode {
                 robot.RExtendo.setPosition(0);
             }
 
+            // TODO: Replace this section/method of slide positioning with a PID Controller
+            if (robot.RSlide.getCurrentPosition() > 10 && robot.LSlide.getCurrentPosition() > 10) {
+                robot.RSlide.setPower(slidesDefaultPower);
+                robot.LSlide.setPower(slidesDefaultPower);
+            }
+
+            // For the Slide(s)
+            // TODO: make sure autos bring slides down at the end
+            if(gamepad2.y){
+                yCounter +=1;
+                sleep(150);
+            }
+            if(gamepad2.a){
+                Collection();
+                slideHeight = 0;
+                yCounter =0;
+            }
+
+
+            // change positions when y is pressed
+            // TODO: set the slide heights
+            switch (yCounter) {
+                case 1:
+                    slideHeight = 1300;
+                    sleep(50);
+                   // Scoring();
+                    break;
+                case 2:
+                    slideHeight = 1750;
+                    sleep(50);
+                   // Scoring();
+                    break;
+                case 3:
+                    slideHeight = 2250;
+                    sleep(50);
+                   // Scoring();
+                    break;
+                case 4:
+                    yCounter = 0;
+                    break;
+            }
 
 
 
 
-
-
+            // Set the power of the motors
             robot.LFront.setPower(leftFrontPower * PowerCoefficient);
             robot.RFront.setPower(rightFrontPower * PowerCoefficient);
             robot.LBack.setPower(leftRearPower * PowerCoefficient);
             robot.RBack.setPower(rightRearPower * PowerCoefficient);
+
+            // TODO: Replace this section/method of slide positioning with a PID Controller
+            // Set the slides to the target position
+            robot.LSlide.setTargetPosition(-slideHeight);
+            robot.RSlide.setTargetPosition(slideHeight);
+            robot.LSlide.setPower(-1);
+            robot.RSlide.setPower(1);
+
+
+
+
+            // Telemetry
+            //      Show runtime
+            telemetry.addData("Status",           "Run Time: " + runtime.toString());
+            //      Show motor power
+            telemetry.addData("Front left/Right", "%4.2f, %4.2f", leftFrontPower, rightFrontPower);
+            telemetry.addData("Back  left/Right", "%4.2f, %4.2f", leftRearPower, rightRearPower);
+            //      Show stick positions
+            telemetry.addData("Left Stick",       "%4.2f, %4.2f", gamepad1.left_stick_x, gamepad1.left_stick_y);
+            telemetry.addData("Right Stick",      "%4.2f, %4.2f", gamepad1.right_stick_x, gamepad1.right_stick_y);
+            //      Show triggers
+            telemetry.addData("Right Trigger",    "%4.2f", gamepad1.right_trigger);
+            telemetry.addData("Left Trigger",     "%4.2f", gamepad1.left_trigger);
+
+
         }
     }
 }
