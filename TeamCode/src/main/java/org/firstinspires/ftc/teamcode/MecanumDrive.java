@@ -14,16 +14,16 @@ public class MecanumDrive extends LinearOpMode {
     // Declare OpMode members for each of the 4 motors.
     private ElapsedTime runtime = new ElapsedTime();
 
+    HardwareMapFTC robot = new HardwareMapFTC();
+
     //Make robot stay up while undergoing the hanging operation
     boolean Hang = false;
+
     @Override
     public void runOpMode() {
 
-
-
-
-
-
+        // Initialize the hardware variables from the HardwareMapFTC class.
+        robot.init(hardwareMap);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -31,6 +31,16 @@ public class MecanumDrive extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
+
+        // Variable for the hang slides, holds the current position of the slides.
+        int slideHeight = 0;
+
+        // Reset the hang slide encoders
+        robot.LSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.RSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.LSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.RSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
 
 
         // run until the end of the match (driver presses STOP)
@@ -59,13 +69,12 @@ public class MecanumDrive extends LinearOpMode {
                 PowerCoefficient2 = 1.0;
             }
 
-            double SlidePower = 0;
+
 
             // input: theta, power, and turn
             double x = gamepad1.left_stick_x;
             double y = -gamepad1.left_stick_y;
             double turn = gamepad1.right_trigger - gamepad1.left_trigger;
-            double intakePower = .5 * gamepad1.right_stick_y;
 
             double theta = Math.atan2(y, x);
             double power = Math.hypot(x, y);
@@ -85,5 +94,27 @@ public class MecanumDrive extends LinearOpMode {
                 leftRearPower /= power + turn;
                 rightRearPower /= power + turn;
             }
+            if (gamepad1.dpad_up) {
+                // Extendo
+                robot.LExtendo.setPosition(0);
+                robot.RExtendo.setPosition(1);
+            }
+            if (gamepad1.dpad_down) {
+                // Retracto
+                robot.LExtendo.setPosition(1);
+                robot.RExtendo.setPosition(0);
+            }
 
-        }}}
+
+
+
+
+
+
+            robot.LFront.setPower(leftFrontPower * PowerCoefficient);
+            robot.RFront.setPower(rightFrontPower * PowerCoefficient);
+            robot.LBack.setPower(leftRearPower * PowerCoefficient);
+            robot.RBack.setPower(rightRearPower * PowerCoefficient);
+        }
+    }
+}
