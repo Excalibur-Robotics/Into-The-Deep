@@ -2,15 +2,19 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 public class HardwareMapFTC {
-    public DcMotor LFront = null;
-    public DcMotor RFront = null;
-    public DcMotor LBack = null;
-    public DcMotor RBack = null;
+    public DcMotor   LFront = null;
+    public DcMotor   RFront = null;
+    public DcMotor   LBack = null;
+    public DcMotor   RBack = null;
     public DcMotorEx LSlide = null;
     public DcMotorEx RSlide = null;
+    public Servo     LExtendo = null;
+    public Servo     RExtendo = null;
 
     HardwareMap TeleOpMap = null;
 
@@ -26,6 +30,8 @@ public class HardwareMapFTC {
         RBack  = TeleOpMap.get(DcMotor.class, "BackRight");
         LSlide = TeleOpMap.get(DcMotorEx.class, "LeftSlide");
         RSlide = TeleOpMap.get(DcMotorEx.class, "RightSlide");
+        LExtendo = TeleOpMap.get(Servo.class, "LeftExtendo");
+        RExtendo = TeleOpMap.get(Servo.class, "RightExtendo");
 
 
         LFront.setDirection(DcMotor.Direction.REVERSE);
@@ -37,6 +43,13 @@ public class HardwareMapFTC {
         LSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+
+        // Allows slides to be set in a position
+        //TODO: Replace this section/method of hanging with a PID Controller
+        LSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        RSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        LSlide.setTargetPositionTolerance(50);
+        RSlide.setTargetPositionTolerance(50);
 
     }
 }
