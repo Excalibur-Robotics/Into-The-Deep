@@ -18,6 +18,8 @@ public class HardwareMapFTC {
     public Servo     LArm       = null;
     public Servo     RArm       = null;
     public Servo     BucketLid  = null;
+    public Servo     Claw       = null;
+    public Servo     ClawRotate = null;
 
     HardwareMap      TeleOpMap  = null;
 
@@ -38,6 +40,9 @@ public class HardwareMapFTC {
         LArm       = TeleOpMap.get(Servo.class,        "LeftArm");
         RArm       = TeleOpMap.get(Servo.class,       "RightArm");
         BucketLid  = TeleOpMap.get(Servo.class,      "BucketLid");
+        Claw       = TeleOpMap.get(Servo.class,           "Claw");
+        ClawRotate = TeleOpMap.get(Servo.class,      "ClawRotate");
+
 
 
         LFront.setDirection(DcMotor.Direction.REVERSE);
