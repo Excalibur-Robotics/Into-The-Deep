@@ -27,8 +27,8 @@ public class HardwareMapFTC {
     public void init(HardwareMap ahwMap) {
         TeleOpMap = ahwMap;
 
-        LFront     = TeleOpMap.get(DcMotor.class,     "BackLeft");
-        RFront     = TeleOpMap.get(DcMotor.class,    "BackRight");
+        LFront     = TeleOpMap.get(DcMotor.class,     "FrontLeft");
+        RFront     = TeleOpMap.get(DcMotor.class,    "FrontRight");
         LBack      = TeleOpMap.get(DcMotor.class,     "BackLeft");
         RBack      = TeleOpMap.get(DcMotor.class,    "BackRight");
         LSlide     = TeleOpMap.get(DcMotorEx.class,  "LeftSlide");
