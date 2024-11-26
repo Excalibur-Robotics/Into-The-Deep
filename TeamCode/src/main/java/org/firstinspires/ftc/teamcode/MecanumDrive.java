@@ -2,9 +2,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name="BucketBot", group="Linear OpMode")
@@ -22,14 +20,39 @@ public class MecanumDrive extends LinearOpMode {
     boolean Hang = false;
 
 
-    public void Scoring() {
-        robot.BucketRotate.setDirection(Servo.Direction.FORWARD);
-        robot.BucketRotate.setPosition(1);
+    public void Extendo() {
+        // Close the claw
+        robot.Claw.setPosition(0.5);
+        // rotate to up position
+        robot.ClawRotate.setPosition(1);
+        // extend the slides
+        robot.LExtendo.setPosition(1);
+        robot.RExtendo.setPosition(0);
+        // rotate to down position
+        robot.ClawRotate.setPosition(0.35);
+        // open the claw
+        robot.Claw.setPosition(0);
+    }
+    public void Retracto() {
+        // Close the claw
+        robot.Claw.setPosition(0.5);
+        // rotate to up position
+        robot.ClawRotate.setPosition(1);
+        // retract the slides
+        robot.LExtendo.setPosition(0);
+        robot.RExtendo.setPosition(1);
     }
     public void Collection() {
-        robot.BucketRotate.setDirection(Servo.Direction.REVERSE);
+        // Collection Postition
         robot.BucketRotate.setPosition(0);
-        robot.BucketLid.setPosition(0);
+        // Open Bucket
+        robot.BucketLid.setPosition(-1);
+    }
+    public void Scoring() {
+        // Scoring Position
+        robot.BucketRotate.setPosition(1);
+        // Close Bucket
+        robot.BucketLid.setPosition(1);
     }
 
 
@@ -112,20 +135,18 @@ public class MecanumDrive extends LinearOpMode {
             }
             if (gamepad2.dpad_up) {
                 // Extendo
-                robot.LExtendo.setPosition(1);
-                robot.RExtendo.setPosition(0);
+                Extendo();
             }
             if (gamepad2.dpad_down) {
                 // Retracto
-                robot.LExtendo.setPosition(0);
-                robot.RExtendo.setPosition(1);
+                Retracto();
             }
-            if(gamepad2.dpad_left){
-                robot.ClawRotate.setPosition(1);
-            }
-            if(gamepad2.dpad_right){
-                robot.ClawRotate.setPosition(0.35);
-            }
+//            if(gamepad2.dpad_left){
+//                robot.ClawRotate.setPosition(1);
+//            }
+//            if(gamepad2.dpad_right){
+//                robot.ClawRotate.setPosition(0.35);
+//            }
 
             // TODO: Replace this section/method of slide positioning with a PID Controller
             if (robot.RSlide.getCurrentPosition() > 10 && robot.LSlide.getCurrentPosition() > 10) {
@@ -145,10 +166,11 @@ public class MecanumDrive extends LinearOpMode {
                 yCounter =0;
             }
             if (gamepad2.right_trigger > 0.5) {
+                // Close claw
                 robot.Claw.setPosition(0.5);
-
             }
             if (gamepad2.left_trigger > 0.5) {
+                // Open claw
                 robot.Claw.setPosition(0);
             }
             if (gamepad2.b) {
@@ -156,14 +178,14 @@ public class MecanumDrive extends LinearOpMode {
                 robot.BucketLid.setPosition(1);
             }
             if (gamepad2.x) {
+                // Open bucket
                 robot.BucketLid.setPosition(-1);
-
             }
             if(gamepad2.left_bumper){
-                robot.BucketRotate.setPosition(0);
+                Collection();
             }
             if(gamepad2.right_bumper){
-                robot.BucketRotate.setPosition(1);
+                Scoring();
             }
 
 
@@ -179,15 +201,17 @@ public class MecanumDrive extends LinearOpMode {
                 case 2:
                     slideHeight = 1750;
                     sleep(50);
+                    Scoring();
 
                     break;
                 case 3:
                     slideHeight = 2750;
                     sleep(50);
-
+                    Scoring();
                     break;
                 case 4:
                     yCounter = 0;
+
                     break;
             }
 
