@@ -20,7 +20,7 @@ public class MecanumDrive extends LinearOpMode {
     boolean Hang = false;
 
 
-    public void Extendo() {
+    public void Retracto() {
         // Close the claw
         robot.Claw.setPosition(0.5);
         // rotate to up position
@@ -29,15 +29,15 @@ public class MecanumDrive extends LinearOpMode {
         robot.LExtendo.setPosition(1);
         robot.RExtendo.setPosition(0);
         // rotate to down position
-        robot.ClawRotate.setPosition(0.35);
+        robot.ClawRotate.setPosition(1);
         // open the claw
         robot.Claw.setPosition(0);
     }
-    public void Retracto() {
+    public void Extendo() {
         // Close the claw
         robot.Claw.setPosition(0.5);
         // rotate to up position
-        robot.ClawRotate.setPosition(1);
+        robot.ClawRotate.setPosition(0.35);
         // retract the slides
         robot.LExtendo.setPosition(0);
         robot.RExtendo.setPosition(1);
