@@ -2,10 +2,9 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="BucketBot", group="Linear OpMode")
+@TeleOp(name="DinoBot", group="Linear OpMode")
 
 public class MecanumDrive extends LinearOpMode {
 
@@ -22,33 +21,36 @@ public class MecanumDrive extends LinearOpMode {
 
     public void Extendo() {
         // Close the claw
-        robot.Claw.setPosition(0.5);
+        robot.Claw.setPosition(0.4);
         // rotate to up position
         robot.ClawRotate.setPosition(1);
         // extend the slides
-        robot.LExtendo.setPosition(1);
-        robot.RExtendo.setPosition(0);
+        robot.LExtendo.setPosition(0);
+        robot.RExtendo.setPosition(1);
         // rotate to down position
-        robot.ClawRotate.setPosition(0.35);
-        // open the claw
-        robot.Claw.setPosition(0);
+        robot.ClawRotate.setPosition(0.4);
     }
     public void Retracto() {
         // Close the claw
-        robot.Claw.setPosition(0.5);
+        robot.Claw.setPosition(0.4);
         // rotate to up position
         robot.ClawRotate.setPosition(1);
+        robot.BucketLid.setPosition(.75);
         // retract the slides
-        robot.LExtendo.setPosition(0);
-        robot.RExtendo.setPosition(1);
-    }
-    public void Collection() {
-        // Collection Postition
-        robot.BucketRotate.setPosition(0);
-        // Open Bucket
-        robot.BucketLid.setPosition(-1);
+        robot.LExtendo.setPosition(1);
+        robot.RExtendo.setPosition(.5);
+        // open the claw
+        sleep(1000);
+       // robot.Claw.setPosition(0.2);
     }
     public void Scoring() {
+        // Collection Postition
+        robot.BucketRotate.setPosition(-1);
+        // Open Bucket
+        sleep(250);
+        //robot.BucketLid.setPosition(.75);
+    }
+    public void Collection() {
         // Scoring Position
         robot.BucketRotate.setPosition(1);
         // Close Bucket
@@ -167,7 +169,7 @@ public class MecanumDrive extends LinearOpMode {
             }
             if (gamepad2.right_trigger > 0.5) {
                 // Close claw
-                robot.Claw.setPosition(0.5);
+                robot.Claw.setPosition(0.4);
             }
             if (gamepad2.left_trigger > 0.5) {
                 // Open claw
@@ -179,7 +181,7 @@ public class MecanumDrive extends LinearOpMode {
             }
             if (gamepad2.x) {
                 // Open bucket
-                robot.BucketLid.setPosition(-1);
+                robot.BucketLid.setPosition(.75);
             }
             if(gamepad2.left_bumper){
                 Collection();
