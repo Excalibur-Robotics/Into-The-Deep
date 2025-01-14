@@ -1,10 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name="ServoReset", group="Linear OpMode")
@@ -39,8 +36,7 @@ public class ResetServo extends LinearOpMode {
                 servo.setPosition(1);
 
             }
-
-
+            
 
             // Show the elapsed game time and wheel power.
             telemetry.addData("Status",           "Run Time: " + runtime.toString());
