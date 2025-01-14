@@ -4,15 +4,14 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="DinoBot", group="Linear OpMode")
+@TeleOp(name="DannyTheDinoBot", group="Linear OpMode")
 
-public class Danny extends LinearOpMode {
+public class Teleop extends LinearOpMode {
 
     // Declare OpMode members for each of the 4 motors.
     private ElapsedTime runtime = new ElapsedTime();
 
     HardwareMap robot = new HardwareMap();
-
     // TODO: Replace this section/method of slide positioning with a PID Controller
     int yCounter = 0;
     //Make robot stay up while undergoing the hanging operation
@@ -162,15 +161,16 @@ public class Danny extends LinearOpMode {
                 yCounter +=1;
                 sleep(150);
             }
+
             if(gamepad2.a){
                 slideHeight = 0;
                 Collection();
                 yCounter =0;
             }
-            if (gamepad2.right_trigger > 0.5) {
-                // Close claw
-                robot.Claw.setPosition(0.4);
-            }
+
+            if (gamepad2.right_trigger > 0.5) robot.Claw.setPosition(0.4);
+            
+
             if (gamepad2.left_trigger > 0.5) {
                 // Open claw
                 robot.Claw.setPosition(0);
@@ -191,6 +191,7 @@ public class Danny extends LinearOpMode {
             }
 
             // -------------------------------------------- //
+
             if (yCounter == 1) {
                 slideHeight = 1300;
                 sleep(50);
@@ -206,7 +207,6 @@ public class Danny extends LinearOpMode {
             } else if (yCounter == 4) {
                 yCounter = 0;
             }
-
 
             // change positions when y is pressed
             /* TODO: set the slide heights
