@@ -25,8 +25,8 @@ public class MecanumDrive extends LinearOpMode {
         // rotate to up position
         robot.ClawRotate.setPosition(1);
         // extend the slides
-        robot.LExtendo.setPosition(0);
-        robot.RExtendo.setPosition(1);
+        robot.LExtendo.setPosition(.25);
+        robot.RExtendo.setPosition(.25);
         // rotate to down position
         robot.ClawRotate.setPosition(0.4);
     }
@@ -35,26 +35,26 @@ public class MecanumDrive extends LinearOpMode {
         robot.Claw.setPosition(0.4);
         // rotate to up position
         robot.ClawRotate.setPosition(1);
-        robot.BucketLid.setPosition(.75);
+        robot.Mouth.setPosition(.75);
         // retract the slides
-        robot.LExtendo.setPosition(1);
-        robot.RExtendo.setPosition(.5);
+        robot.LExtendo.setPosition(-1);
+        robot.RExtendo.setPosition(-1);
         // open the claw
         sleep(1000);
-       // robot.Claw.setPosition(0.2);
+        robot.Claw.setPosition(0.2);
     }
     public void Scoring() {
         // Collection Postition
-        robot.BucketRotate.setPosition(-1);
+        robot.Neck.setPosition(-1);
         // Open Bucket
         sleep(250);
         //robot.BucketLid.setPosition(.75);
     }
     public void Collection() {
         // Scoring Position
-        robot.BucketRotate.setPosition(1);
+        robot.Neck.setPosition(1);
         // Close Bucket
-        robot.BucketLid.setPosition(1);
+        robot.Mouth.setPosition(1);
     }
 
 
@@ -177,11 +177,11 @@ public class MecanumDrive extends LinearOpMode {
             }
             if (gamepad2.b) {
                 // Close bucket
-                robot.BucketLid.setPosition(1);
+                robot.Mouth.setPosition(1);
             }
             if (gamepad2.x) {
                 // Open bucket
-                robot.BucketLid.setPosition(.75);
+                robot.Mouth.setPosition(.75);
             }
             if(gamepad2.left_bumper){
                 Collection();
@@ -190,10 +190,26 @@ public class MecanumDrive extends LinearOpMode {
                 Scoring();
             }
 
+            // -------------------------------------------- //
+            if (yCounter == 1) {
+                slideHeight = 1300;
+                sleep(50);
+                // Scoring();
+            } else if (yCounter == 2) {
+                slideHeight = 1750;
+                sleep(50);
+                Scoring();
+            } else if (yCounter == 3) {
+                slideHeight = 2750;
+                sleep(50);
+                Scoring();
+            } else if (yCounter == 4) {
+                yCounter = 0;
+            }
 
 
             // change positions when y is pressed
-            // TODO: set the slide heights
+            /* TODO: set the slide heights
             switch (yCounter) {
                 case 1:
                     slideHeight = 1300;
@@ -217,7 +233,7 @@ public class MecanumDrive extends LinearOpMode {
                     break;
             }
 
-
+        */
 
 
             // Set the power of the motors

@@ -14,8 +14,8 @@ public class HardwareMapFTC {
     public DcMotorEx RSlide     = null;
     public Servo     LExtendo   = null;
     public Servo     RExtendo   = null;
-    public Servo     BucketLid  = null;
-    public Servo     BucketRotate = null;
+    public Servo     Mouth      = null;
+    public Servo     Neck       = null;
     public Servo     Claw       = null;
     public Servo     ClawRotate = null;
 
@@ -27,18 +27,18 @@ public class HardwareMapFTC {
     public void init(HardwareMap ahwMap) {
         TeleOpMap = ahwMap;
 
-        LFront     = TeleOpMap.get(DcMotor.class,     "FrontLeft");
-        RFront     = TeleOpMap.get(DcMotor.class,    "FrontRight");
-        LBack      = TeleOpMap.get(DcMotor.class,     "BackLeft");
-        RBack      = TeleOpMap.get(DcMotor.class,    "BackRight");
-        LSlide     = TeleOpMap.get(DcMotorEx.class,  "LeftSlide");
-        RSlide     = TeleOpMap.get(DcMotorEx.class, "RightSlide");
-        LExtendo   = TeleOpMap.get(Servo.class,    "LeftExtendo");
-        RExtendo   = TeleOpMap.get(Servo.class,   "RightExtendo");
-        BucketLid  = TeleOpMap.get(Servo.class,      "BucketLid");
-        BucketRotate = TeleOpMap.get(Servo.class, "BucketRotate");
-        Claw       = TeleOpMap.get(Servo.class,           "Claw");
-        ClawRotate = TeleOpMap.get(Servo.class,      "ClawRotate");
+        LFront     = TeleOpMap.get(DcMotor.class,        "FrontLeft");
+        RFront     = TeleOpMap.get(DcMotor.class,        "FrontRight");
+        LBack      = TeleOpMap.get(DcMotor.class,          "BackLeft");
+        RBack      = TeleOpMap.get(DcMotor.class,         "BackRight");
+        LSlide     = TeleOpMap.get(DcMotorEx.class,       "LeftSlide");
+        RSlide     = TeleOpMap.get(DcMotorEx.class,      "RightSlide");
+        LExtendo   = TeleOpMap.get(Servo.class,         "LeftExtendo");
+        RExtendo   = TeleOpMap.get(Servo.class,        "RightExtendo");
+        Mouth      = TeleOpMap.get(Servo.class,               "Mouth");
+        Neck       = TeleOpMap.get(Servo.class,                "Neck");
+        Claw       = TeleOpMap.get(Servo.class,                "Claw");
+        ClawRotate = TeleOpMap.get(Servo.class,          "ClawRotate");
 
 
 
@@ -53,7 +53,7 @@ public class HardwareMapFTC {
         RSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
-
+        RExtendo.setDirection(Servo.Direction.REVERSE);
 
 
         // Allows slides to be set in a position
@@ -61,7 +61,5 @@ public class HardwareMapFTC {
         LSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         RSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         LSlide.setTargetPositionTolerance(50);
-        RSlide.setTargetPositionTolerance(50);
-
-    }
+        RSlide.setTargetPositionTolerance(50);    }
 }
