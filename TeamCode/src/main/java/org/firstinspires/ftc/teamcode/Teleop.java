@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name="DinoBot", group="Linear OpMode")
 
-public class Danny extends LinearOpMode {
+public class Teleop extends LinearOpMode {
 
     // Declare OpMode members for each of the 4 motors.
     private ElapsedTime runtime = new ElapsedTime();
