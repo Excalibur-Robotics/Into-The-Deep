@@ -25,7 +25,6 @@ public class Teleop extends LinearOpMode {
     private static final int SLIDE_LEVEL_1 = 1300;
     private static final int SLIDE_LEVEL_2 = 1750;
     private static final int SLIDE_LEVEL_3 = 2750;
-    private static final double SLIDE_POWER = 1.0;
 
     private int slideHeight = 0;
     private int yCounter = 0;
