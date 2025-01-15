@@ -168,6 +168,7 @@ public class Teleop extends LinearOpMode {
                 yCounter =0;
             }
 
+
             if (gamepad2.right_trigger > 0.5) robot.Claw.setPosition(0.4);
 
 
@@ -191,20 +192,26 @@ public class Teleop extends LinearOpMode {
             }
 
             // -------------------------------------------- //
-
+            if (yCounter == 0){
+                robot.LSlide.setPower(0);
+                robot.RSlide.setPower(0);
+            }
             if (yCounter == 1) {
                 slideHeight = 1300;
                 sleep(50);
                 // Scoring();
-            } else if (yCounter == 2) {
+            }
+            if (yCounter == 2) {
                 slideHeight = 1750;
                 sleep(50);
                 Scoring();
-            } else if (yCounter == 3) {
+            }
+            if (yCounter == 3) {
                 slideHeight = 2750;
                 sleep(50);
                 Scoring();
-            } else if (yCounter == 4) {
+            }
+            if (yCounter == 4) {
                 yCounter = 0;
             }
 
