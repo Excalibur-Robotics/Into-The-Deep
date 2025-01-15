@@ -55,6 +55,7 @@ public class Teleop extends LinearOpMode {
         // Close Bucket
         robot.Mouth.setPosition(.45);
     }
+    double SlideAvgPos;
 
 
     @Override
@@ -77,14 +78,18 @@ public class Teleop extends LinearOpMode {
         // Reset the hang slide encoders
         robot.LSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.RSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        robot.LSlide.setTargetPosition(0);
+        robot.RSlide.setTargetPosition(0);
         robot.LSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.RSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 
 
 
+
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
+            SlideAvgPos = (double) (robot.LSlide.getCurrentPosition() + robot.RSlide.getCurrentPosition()) /2;
 
             // Makes it easier to create a variable power level
             double PowerCoefficient = .75;
@@ -192,10 +197,10 @@ public class Teleop extends LinearOpMode {
             }
 
             // -------------------------------------------- //
-            if (yCounter == 0){
-                robot.LSlide.setPower(0);
-                robot.RSlide.setPower(0);
-            }
+//            if (robot.LSlide.getCurrentPosition() < 15 && robot.RSlide.getCurrentPosition() < 15 && yCounter == 0){
+//                robot.LSlide.setPower(0);
+//                robot.RSlide.setPower(0);
+//            }
             if (yCounter == 1) {
                 slideHeight = 1300;
                 sleep(50);
@@ -251,10 +256,16 @@ public class Teleop extends LinearOpMode {
 
             // TODO: Replace this section/method of slide positioning with a PID Controller
             // Set the slides to the target position
-            robot.LSlide.setTargetPosition(-slideHeight);
-            robot.RSlide.setTargetPosition(slideHeight);
-            robot.LSlide.setPower(-1);
-            robot.RSlide.setPower(1);
+
+            if ((Math.abs(SlideAvgPos - slideHeight) > 50 || (SlideAvgPos < -100))) {
+                robot.LSlide.setTargetPosition(-slideHeight);
+                robot.RSlide.setTargetPosition(slideHeight);
+                robot.LSlide.setPower(-1);
+                robot.RSlide.setPower(1);
+            } else {
+                robot.LSlide.setPower(0);
+                robot.RSlide.setPower(0);
+            }
 
 
 
@@ -271,6 +282,13 @@ public class Teleop extends LinearOpMode {
             //      Show triggers
             telemetry.addData("Right Trigger",    "%4.2f", gamepad1.right_trigger);
             telemetry.addData("Left Trigger",     "%4.2f", gamepad1.left_trigger);
+
+            telemetry.addData("LSlide", robot.LSlide.getCurrentPosition());
+            telemetry.addData("RSlide", robot.RSlide.getCurrentPosition());
+            telemetry.addData("slideHeight", slideHeight);
+            telemetry.addData("yCounter", yCounter);
+            telemetry.update();
+
 
 
         }
