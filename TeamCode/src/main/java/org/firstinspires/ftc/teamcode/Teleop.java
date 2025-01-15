@@ -25,6 +25,7 @@ public class Teleop extends LinearOpMode {
     private static final int SLIDE_LEVEL_1 = 1300;
     private static final int SLIDE_LEVEL_2 = 1750;
     private static final int SLIDE_LEVEL_3 = 2750;
+    private static final double SLIDE_POWER = 1.0;
 
     private int slideHeight = 0;
     private int yCounter = 0;
@@ -105,13 +106,11 @@ public class Teleop extends LinearOpMode {
                 yCounter = 0;
         }
 
-        // Calculate PID output for slides
-        double leftSlidePower = PIDControl(-slideHeight, robot.LSlide.getCurrentPosition());
-        double rightSlidePower = PIDControl(slideHeight, robot.RSlide.getCurrentPosition());
-
-        // Apply PID output to slides
-        robot.LSlide.setPower(leftSlidePower);
-        robot.RSlide.setPower(rightSlidePower);
+        // Move slides to target height
+        robot.LSlide.setTargetPosition(-slideHeight);
+        robot.RSlide.setTargetPosition(slideHeight);
+        robot.LSlide.setPower(-SLIDE_POWER);
+        robot.RSlide.setPower(SLIDE_POWER);
     }
 
     private void handleGamepadActions() {
