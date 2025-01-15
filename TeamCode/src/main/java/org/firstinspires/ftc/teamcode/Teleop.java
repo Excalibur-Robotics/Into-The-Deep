@@ -67,6 +67,11 @@ public class Teleop extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
+        robot.LSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.RSlide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        robot.LSlide.setTargetPositionTolerance(50);
+        robot.RSlide.setTargetPositionTolerance(50);
+
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
@@ -79,7 +84,6 @@ public class Teleop extends LinearOpMode {
         robot.RSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.LSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.RSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
 
 
 
