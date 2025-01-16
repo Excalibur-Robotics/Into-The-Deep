@@ -161,7 +161,6 @@ public class Teleop extends LinearOpMode {
             // TODO: make sure autos bring slides down at the end
             if(gamepad2.y){
                 yCounter +=1;
-                sleep(1000);
             }
 
             if(gamepad2.a){
@@ -200,7 +199,7 @@ public class Teleop extends LinearOpMode {
 //            }
             if (yCounter == 1) {
                 slideHeight = 1300;
-                 Scoring();
+                 //Scoring();
             }
 //            if (yCounter == 2) {
 //                slideHeight = 1750;
