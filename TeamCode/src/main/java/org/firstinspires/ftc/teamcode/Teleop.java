@@ -46,16 +46,14 @@ public class Teleop extends LinearOpMode {
         // Collection Postition
         robot.Neck.setPosition(-1);
         // Open Bucket
-        sleep(250);
+        //sleep(250);
         //robot.BucketLid.setPosition(.75);
     }
     public void Collection() {
         // Scoring Position
         robot.Neck.setPosition(1);
         // Close Bucket
-        robot.Mouth.setPosition(.45);
     }
-    double SlideAvgPos;
 
 
     @Override
@@ -89,7 +87,6 @@ public class Teleop extends LinearOpMode {
 
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
-            SlideAvgPos = (double) (robot.LSlide.getCurrentPosition() + robot.RSlide.getCurrentPosition()) /2;
 
             // Makes it easier to create a variable power level
             double PowerCoefficient = .75;
@@ -164,7 +161,7 @@ public class Teleop extends LinearOpMode {
             // TODO: make sure autos bring slides down at the end
             if(gamepad2.y){
                 yCounter +=1;
-                sleep(150);
+                sleep(1000);
             }
 
             if(gamepad2.a){
@@ -203,49 +200,22 @@ public class Teleop extends LinearOpMode {
 //            }
             if (yCounter == 1) {
                 slideHeight = 1300;
-                sleep(50);
-                // Scoring();
+                 Scoring();
             }
+//            if (yCounter == 2) {
+//                slideHeight = 1750;
+//               //  Scoring();
+//            }
             if (yCounter == 2) {
-                slideHeight = 1750;
-                sleep(50);
+                slideHeight = 2750;
                 Scoring();
             }
             if (yCounter == 3) {
-                slideHeight = 2750;
-                sleep(50);
-                Scoring();
-            }
-            if (yCounter == 4) {
                 yCounter = 0;
             }
 
             // change positions when y is pressed
-            /* TODO: set the slide heights
-            switch (yCounter) {
-                case 1:
-                    slideHeight = 1300;
-                    sleep(50);
-                   // Scoring();
-                    break;
-                case 2:
-                    slideHeight = 1750;
-                    sleep(50);
-                    Scoring();
 
-                    break;
-                case 3:
-                    slideHeight = 2750;
-                    sleep(50);
-                    Scoring();
-                    break;
-                case 4:
-                    yCounter = 0;
-
-                    break;
-            }
-
-        */
 
 
             // Set the power of the motors
@@ -256,8 +226,7 @@ public class Teleop extends LinearOpMode {
 
             // TODO: Replace this section/method of slide positioning with a PID Controller
             // Set the slides to the target position
-
-            if ((Math.abs(SlideAvgPos - slideHeight) > 50 || (SlideAvgPos < -100))) {
+            if ((Math.abs(robot.LSlide.getCurrentPosition() - slideHeight) > 50 && Math.abs(robot.RSlide.getCurrentPosition() - slideHeight) > 50) || (robot.LSlide.getCurrentPosition() < -100 && robot.RSlide.getCurrentPosition() > 100)) {
                 robot.LSlide.setTargetPosition(-slideHeight);
                 robot.RSlide.setTargetPosition(slideHeight);
                 robot.LSlide.setPower(-1);
