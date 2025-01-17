@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.autos.encoder;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -123,7 +123,9 @@ public class blueRight extends LinearOpMode {
         robot.RFront.setPower(0);
         robot.RBack.setPower(0);
     }
-    public void Retracto() {
+    public void align() {
+        // Set clipping pos
+        robot.Neck.setPosition(0.45);
         // Close the claw
         robot.Claw.setPosition(0.4);
         // rotate to up position
@@ -132,8 +134,6 @@ public class blueRight extends LinearOpMode {
         // retract the slides
         robot.LExtendo.setPosition(-.8);
         robot.RExtendo.setPosition(-.8);
-        // open the claw
-        sleep(1000);;
     }
 
 
@@ -213,14 +213,17 @@ public class blueRight extends LinearOpMode {
         //strafe("R", -500, 500);
 
 
-        // actual code type script
 
         backward(650);
-        slides(2200);
-        Retracto();
-        backward(650);
+        align();
+        slides(2250);
+        backward(660);
+//        slides(-200);
+        backward(30);
+        slides(1700);
+        backward(-1500);
         telemetry.update();
-        sleep(100000);
+        sleep(10000);
 
 
 //        backward(1000+500);

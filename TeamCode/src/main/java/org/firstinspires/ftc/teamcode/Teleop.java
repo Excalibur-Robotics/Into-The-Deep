@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name="DannyTheDinoBot", group="Linear OpMode")
@@ -27,25 +28,35 @@ public class Teleop extends LinearOpMode {
         robot.LExtendo.setPosition(.25);
         robot.RExtendo.setPosition(.25);
         // rotate to down position
-        robot.ClawRotate.setPosition(0.4);
+        robot.ClawRotate.setPosition(0.35);
     }
     public void Retracto() {
         // Close the claw
         robot.Claw.setPosition(0.4);
         // rotate to up position
         robot.ClawRotate.setPosition(1);
-        robot.Mouth.setPosition(.45);
+        robot.Mouth.setPosition(.5);
         // retract the slides
         robot.LExtendo.setPosition(-1);
         robot.RExtendo.setPosition(-1);
         // open the claw
         sleep(1000);
-
         robot.Claw.setPosition(0.2);
     }
+
+    public void align() {
+        // Close the claw
+        robot.Claw.setPosition(0.4);
+        // rotate to up position
+        robot.ClawRotate.setPosition(0.75);
+        // retract the slides
+        robot.LExtendo.setPosition(-.95);
+        robot.RExtendo.setPosition(-.95);
+    }
+
     public void Scoring() {
         // Collection Postition
-        robot.Neck.setPosition(0.98);
+        robot.Neck.setPosition(0.96);
         // Open Bucket
         //sleep(250);
         //robot.BucketLid.setPosition(.75);
@@ -102,15 +113,15 @@ public class Teleop extends LinearOpMode {
                 PowerCoefficient = 0.25;
             }
 
-            // Extra accuracy mode GamePad 2
-            if (gamepad1.left_bumper) {
-                PowerCoefficient2 = 0.25;
-            }
-
-            // Makes the motors move at full speed GamePad1
-            if (gamepad2.right_bumper) {
-                PowerCoefficient2 = 1.0;
-            }
+//            // Extra accuracy mode GamePad 2
+//            if (gamepad1.left_bumper) {
+//                PowerCoefficient2 = 0.25;
+//            }
+//
+//            // Makes the motors move at full speed GamePad1
+//            if (gamepad2.right_bumper) {
+//                PowerCoefficient2 = 1.0;
+//            }
 
 
 
@@ -163,9 +174,7 @@ public class Teleop extends LinearOpMode {
 
 
             if(gamepad2.ps) {
-                robot.ClawRotate.setPosition(0.66);
-                robot.LExtendo.setPosition(-0.75);
-                robot.RExtendo.setPosition(-0.75);
+                align();
 
             }
 
@@ -182,7 +191,6 @@ public class Teleop extends LinearOpMode {
                 if (slideHeight > 30) {
                     slideHeight -= 25;
                 }
-                Collection();
             }
 
 
