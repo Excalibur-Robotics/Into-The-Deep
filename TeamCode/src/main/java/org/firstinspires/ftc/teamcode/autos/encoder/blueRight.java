@@ -138,16 +138,8 @@ public class blueRight extends LinearOpMode {
 
 
     public void slides(int height) {
-//        this.height = height;
-//        robot.LSlide.setTargetPosition(height);
-//        robot.RSlide.setTargetPosition(height);
-//        robot.LSlide.setPower(1);
-//        robot.RSlide.setPower(1);
-//        robot.LSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-//        robot.RSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         int slideHeight = height;
-        // Reset the hang slide encoders
         telemetry.addData("method", "method");
 
         robot.RSlide.setTargetPosition(-height);
@@ -156,13 +148,6 @@ public class blueRight extends LinearOpMode {
         robot.LSlide.setTargetPosition(height);
         telemetry.addData("leftslidepos", robot.LSlide.getCurrentPosition());
 
-
-//        if ((Math.abs(robot.LSlide.getCurrentPosition() - slideHeight) > 30 && Math.abs(robot.RSlide.getCurrentPosition() - slideHeight) > 30)) {
-//
-//            telemetry.addData("ig", "if");
-//            robot.LSlide.setPower(-0.6);
-//            robot.RSlide.setPower(0.6);
-//        }
             while (Math.abs(robot.LSlide.getCurrentPosition() - slideHeight) > 30 && Math.abs(robot.RSlide.getCurrentPosition() - slideHeight) > 30) {
                 robot.LSlide.setPower((-0.6));
                 robot.RSlide.setPower((0.6));
@@ -170,8 +155,6 @@ public class blueRight extends LinearOpMode {
 
             robot.LSlide.setPower(0);
             robot.RSlide.setPower(0);
-
-
 
 
     }
@@ -188,26 +171,21 @@ public class blueRight extends LinearOpMode {
 
         robot.LBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.RBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        robot.LSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        robot.RSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         robot.LBack.setTargetPosition(0);
         robot.RBack.setTargetPosition(0);
+
         robot.LBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.RBack.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 
         telemetry.addData("Status", "Ready to run");
-        telemetry.update();
+
 
 
         waitForStart();
-       /*
-           Robot is facing the driver
-           Strafes to the right
-           Raises the slides
-           Goes back to the high rise (slowly)
-           Lowers slides
-           Drives forward
-           Stafes to the left to park
-        */
 
         telemetry.addData("run", "runnig");
         //strafe("R", -500, 500);
@@ -216,14 +194,18 @@ public class blueRight extends LinearOpMode {
 
         backward(650);
         align();
-        slides(2250);
-        backward(660);
-//        slides(-200);
-        backward(30);
-        slides(1700);
-        backward(-1500);
+        slides(2000);
+        backward(1060);
+        sleep(300);
+        slides(-500);
+        backward(-500);
         telemetry.update();
         sleep(10000);
+
+        while(opModeIsActive()){
+            telemetry.update();
+
+        }
 
 
 //        backward(1000+500);
