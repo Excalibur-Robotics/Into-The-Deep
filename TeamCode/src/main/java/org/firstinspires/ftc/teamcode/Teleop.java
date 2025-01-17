@@ -40,18 +40,19 @@ public class Teleop extends LinearOpMode {
         robot.RExtendo.setPosition(-1);
         // open the claw
         sleep(1000);
+
         robot.Claw.setPosition(0.2);
     }
     public void Scoring() {
         // Collection Postition
-        robot.Neck.setPosition(-1);
+        robot.Neck.setPosition(0.98);
         // Open Bucket
         //sleep(250);
         //robot.BucketLid.setPosition(.75);
     }
     public void Collection() {
         // Scoring Position
-        robot.Neck.setPosition(1);
+        robot.Neck.setPosition(0.45);
         // Close Bucket
     }
 
@@ -149,7 +150,7 @@ public class Teleop extends LinearOpMode {
 //            }
 //            if(gamepad2.dpad_right){
 //                robot.ClawRotate.setPosition(0.35);
-//            }
+//            }++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
             // TODO: Replace this section/method of slide positioning with a PID Controller
             if (robot.RSlide.getCurrentPosition() > 10 && robot.LSlide.getCurrentPosition() > 10) {
@@ -183,7 +184,7 @@ public class Teleop extends LinearOpMode {
             }
             if (gamepad2.x) {
                 // Open bucket
-                robot.Mouth.setPosition(.45);
+                robot.Mouth.setPosition(.7);
             }
             if(gamepad2.left_bumper){
                 Collection();
@@ -198,18 +199,17 @@ public class Teleop extends LinearOpMode {
 //                robot.RSlide.setPower(0);
 //            }
             if (yCounter == 1) {
-                slideHeight = 1300;
+                slideHeight = 1450;
                  //Scoring();
             }
-//            if (yCounter == 2) {
-//                slideHeight = 1750;
-//               //  Scoring();
-//            }
             if (yCounter == 2) {
-                slideHeight = 2750;
-                Scoring();
+                slideHeight = 1800;
             }
             if (yCounter == 3) {
+                slideHeight = 2750;
+                //Scoring();
+            }
+            if (yCounter == 4) {
                 yCounter = 0;
             }
 
