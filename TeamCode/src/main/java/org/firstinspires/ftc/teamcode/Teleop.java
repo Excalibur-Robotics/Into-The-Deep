@@ -160,14 +160,29 @@ public class Teleop extends LinearOpMode {
 
             // For the Slide(s)
             // TODO: make sure autos bring slides down at the end
-            if(gamepad2.y){
-                yCounter +=1;
+
+
+            if(gamepad2.ps) {
+                robot.ClawRotate.setPosition(0.66);
+                robot.LExtendo.setPosition(-0.75);
+                robot.RExtendo.setPosition(-0.75);
+
             }
 
-            if(gamepad2.a){
-                slideHeight = 0;
+            if(gamepad1.y) {
+                //int heightIncreaser = 100;
+                if (slideHeight < 2400) {
+                    slideHeight += 25;
+                }
+            }
+
+
+
+            if(gamepad1.a){
+                if (slideHeight > 30) {
+                    slideHeight -= 25;
+                }
                 Collection();
-                yCounter =0;
             }
 
 
@@ -198,20 +213,8 @@ public class Teleop extends LinearOpMode {
 //                robot.LSlide.setPower(0);
 //                robot.RSlide.setPower(0);
 //            }
-            if (yCounter == 1) {
-                slideHeight = 1450;
-                 //Scoring();
-            }
-            if (yCounter == 2) {
-                slideHeight = 1800;
-            }
-            if (yCounter == 3) {
-                slideHeight = 2750;
-                //Scoring();
-            }
-            if (yCounter == 4) {
-                yCounter = 0;
-            }
+
+
 
             // change positions when y is pressed
 
@@ -254,7 +257,6 @@ public class Teleop extends LinearOpMode {
             telemetry.addData("LSlide", robot.LSlide.getCurrentPosition());
             telemetry.addData("RSlide", robot.RSlide.getCurrentPosition());
             telemetry.addData("slideHeight", slideHeight);
-            telemetry.addData("yCounter", yCounter);
             telemetry.update();
 
 

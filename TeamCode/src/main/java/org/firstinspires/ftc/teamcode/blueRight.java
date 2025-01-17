@@ -101,14 +101,14 @@ public class blueRight extends LinearOpMode {
     public void backward(int ticks) {
         int lbeck = robot.LBack.getCurrentPosition()+ticks;
         robot.LBack.setTargetPosition(lbeck);
-        int rback = robot.RBack.getCurrentPosition()-ticks;
+        int rback = robot.RBack.getCurrentPosition()+ticks;
         robot.RBack.setTargetPosition(rback);
 
         while(Math.abs(rback - robot.RBack.getCurrentPosition()) > 15 && Math.abs(lbeck - robot.LBack.getCurrentPosition()) > 15)
         {
 
             //robot.LFront.setPower(FORWARD_SPEED);
-            robot.LBack.setPower(FORWARD_SPEED);
+            robot.LBack.setPower(-FORWARD_SPEED);
             //robot.RFront.setPower(-FORWARD_SPEED);
             robot.RBack.setPower(-FORWARD_SPEED);
         }
@@ -123,16 +123,57 @@ public class blueRight extends LinearOpMode {
         robot.RFront.setPower(0);
         robot.RBack.setPower(0);
     }
+    public void Retracto() {
+        // Close the claw
+        robot.Claw.setPosition(0.4);
+        // rotate to up position
+        robot.ClawRotate.setPosition(0.75);
+        robot.Mouth.setPosition(.45);
+        // retract the slides
+        robot.LExtendo.setPosition(-.8);
+        robot.RExtendo.setPosition(-.8);
+        // open the claw
+        sleep(1000);;
+    }
 
 
     public void slides(int height) {
-        this.height = height;
+//        this.height = height;
+//        robot.LSlide.setTargetPosition(height);
+//        robot.RSlide.setTargetPosition(height);
+//        robot.LSlide.setPower(1);
+//        robot.RSlide.setPower(1);
+//        robot.LSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//        robot.RSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        int slideHeight = height;
+        // Reset the hang slide encoders
+        telemetry.addData("method", "method");
+
+        robot.RSlide.setTargetPosition(-height);
+        telemetry.addData("rightslidepos", robot.RSlide.getCurrentPosition());
+
         robot.LSlide.setTargetPosition(height);
-        robot.RSlide.setTargetPosition(height);
-        robot.LSlide.setPower(1);
-        robot.RSlide.setPower(1);
-        robot.LSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.RSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        telemetry.addData("leftslidepos", robot.LSlide.getCurrentPosition());
+
+
+//        if ((Math.abs(robot.LSlide.getCurrentPosition() - slideHeight) > 30 && Math.abs(robot.RSlide.getCurrentPosition() - slideHeight) > 30)) {
+//
+//            telemetry.addData("ig", "if");
+//            robot.LSlide.setPower(-0.6);
+//            robot.RSlide.setPower(0.6);
+//        }
+            while (Math.abs(robot.LSlide.getCurrentPosition() - slideHeight) > 30 && Math.abs(robot.RSlide.getCurrentPosition() - slideHeight) > 30) {
+                robot.LSlide.setPower((-0.6));
+                robot.RSlide.setPower((0.6));
+            }
+
+            robot.LSlide.setPower(0);
+            robot.RSlide.setPower(0);
+
+
+
+
     }
 
 
@@ -143,7 +184,7 @@ public class blueRight extends LinearOpMode {
     @Override
     public void runOpMode() {
         robot.init(hardwareMap);
-
+        boolean slidesOff = true;
 
         robot.LBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.RBack.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -173,13 +214,20 @@ public class blueRight extends LinearOpMode {
 
 
         // actual code type script
-        strafe("R",500,500);
-        slides(2000);
-        backward(1000+500);
-        slides(1500);
-        backward(-1500);
-        slides(0);
-        strafe("L", 500, 500);
+
+        backward(650);
+        slides(2200);
+        Retracto();
+        backward(650);
+        telemetry.update();
+        sleep(100000);
+
+
+//        backward(1000+500);
+//        slides(1500);
+//        backward(-1500);
+//        slides(0);
+//        strafe("L", 500, 500);
 
 
 
