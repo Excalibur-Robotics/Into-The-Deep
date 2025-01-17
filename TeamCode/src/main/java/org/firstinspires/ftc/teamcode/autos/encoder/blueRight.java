@@ -137,27 +137,43 @@ public class blueRight extends LinearOpMode {
     }
 
 
-    public void slides(int height) {
+    public void slides(String dir, int height) {
 
         int slideHeight = height;
         telemetry.addData("method", "method");
 
-        robot.RSlide.setTargetPosition(-height);
+        robot.RSlide.setTargetPosition(height);
         telemetry.addData("rightslidepos", robot.RSlide.getCurrentPosition());
 
-        robot.LSlide.setTargetPosition(height);
+        robot.LSlide.setTargetPosition(-height);
         telemetry.addData("leftslidepos", robot.LSlide.getCurrentPosition());
 
-            while (Math.abs(robot.LSlide.getCurrentPosition() - slideHeight) > 30 && Math.abs(robot.RSlide.getCurrentPosition() - slideHeight) > 30) {
+
+        if (dir == "up" ) {
+            while (Math.abs(robot.LSlide.getCurrentPosition() - slideHeight) > 10 && Math.abs(robot.RSlide.getCurrentPosition() - slideHeight) > 10) {
                 robot.LSlide.setPower((-0.6));
                 robot.RSlide.setPower((0.6));
             }
 
+
+            robot.LSlide.setPower(0);
+            robot.RSlide.setPower(0);
+        }
+        else if (dir == "down") {
+            while (Math.abs(robot.LSlide.getCurrentPosition() - slideHeight) > 10 && Math.abs(robot.RSlide.getCurrentPosition() - slideHeight) > 10) {
+                robot.LSlide.setPower((0.6));
+                robot.RSlide.setPower((-0.6));
+            }
+
+
             robot.LSlide.setPower(0);
             robot.RSlide.setPower(0);
 
+        }
+
 
     }
+
 
 
 
@@ -190,22 +206,36 @@ public class blueRight extends LinearOpMode {
         telemetry.addData("run", "runnig");
         //strafe("R", -500, 500);
 
+        // code
 
-
-        backward(650);
+        backward(600);
         align();
-        slides(2000);
+
+        slides("up", 1650);
+        robot.LSlide.setPower(-0.05);
+        robot.RSlide.setPower(0.05);
+
         backward(1060);
+        robot.LSlide.setPower(0.7);
+        robot.RSlide.setPower(-0.7);
+        backward(150);
+        sleep(750);
+
+        robot.LSlide.setPower(-0.05);
+        robot.RSlide.setPower(0.05);
+        backward(-600);
+        //slides("up",1300);
+
         sleep(300);
-        slides(-500);
+
+
+        
+        /*
+        slides("down", 500);
         backward(-500);
         telemetry.update();
         sleep(10000);
-
-        while(opModeIsActive()){
-            telemetry.update();
-
-        }
+*/
 
 
 //        backward(1000+500);
