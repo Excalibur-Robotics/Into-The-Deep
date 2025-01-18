@@ -29,11 +29,13 @@ public class blueRight extends LinearOpMode {
             robot.RBack.setPower(TURN_SPEED);
             robot.LFront.setPower(-TURN_SPEED);
             robot.LBack.setPower(-TURN_SPEED);
+            sleep(time);
         } else if (dir.equals("R")) {
             robot.LFront.setPower(TURN_SPEED);
             robot.LBack.setPower(TURN_SPEED);
             robot.RFront.setPower(-TURN_SPEED);
             robot.RBack.setPower(-TURN_SPEED);
+            sleep(time);
         }
         //sleep(time);
         stopMotors();
@@ -219,17 +221,18 @@ public class blueRight extends LinearOpMode {
         robot.LSlide.setPower(0.7);
         robot.RSlide.setPower(-0.7);
         backward(150);
-        sleep(750);
+        sleep(600);
 
         robot.LSlide.setPower(-0.05);
         robot.RSlide.setPower(0.05);
         backward(-600);
+        slides("down", 0);
         //slides("up",1300);
 
         sleep(300);
 
 
-        
+
         /*
         slides("down", 500);
         backward(-500);
