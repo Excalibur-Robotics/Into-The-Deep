@@ -180,7 +180,7 @@ public class Teleop extends LinearOpMode {
 
             if(gamepad1.y) {
                 //int heightIncreaser = 100;
-                if (slideHeight < 2400) {
+                if (slideHeight < 3150) {
                     slideHeight += 25;
                 }
             }

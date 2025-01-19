@@ -210,24 +210,28 @@ public class blueRight extends LinearOpMode {
 
         // code
 
-        backward(600);
-        align();
-
-        slides("up", 1650);
-        robot.LSlide.setPower(-0.05);
-        robot.RSlide.setPower(0.05);
-
-        backward(1060);
-        robot.LSlide.setPower(0.7);
-        robot.RSlide.setPower(-0.7);
-        backward(150);
-        sleep(600);
-
-        robot.LSlide.setPower(-0.05);
-        robot.RSlide.setPower(0.05);
-        backward(-600);
-        slides("down", 0);
+        backward(800);
+//        align();
+//
+//        slides("up", 1650);
+//        robot.LSlide.setPower(-0.05);
+//        robot.RSlide.setPower(0.05);
+//
+//        backward(1060);
+//        robot.LSlide.setPower(0.7);
+//        robot.RSlide.setPower(-0.7);
+//        backward(150);
+//        sleep(600);
+//
+//        robot.LSlide.setPower(-0.05);
+//        robot.RSlide.setPower(0.05);
+//        backward(-600);
+        //slides("down", 0);
         //slides("up",1300);
+
+
+
+
 
         sleep(300);
 
