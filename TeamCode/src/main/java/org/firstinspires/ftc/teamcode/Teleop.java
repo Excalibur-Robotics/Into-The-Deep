@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name="DannyTheDinoBot", group="Linear OpMode")
@@ -27,14 +28,14 @@ public class Teleop extends LinearOpMode {
         robot.LExtendo.setPosition(.25);
         robot.RExtendo.setPosition(.25);
         // rotate to down position
-        robot.ClawRotate.setPosition(0.4);
+        robot.ClawRotate.setPosition(0.35);
     }
     public void Retracto() {
         // Close the claw
         robot.Claw.setPosition(0.4);
         // rotate to up position
         robot.ClawRotate.setPosition(1);
-        robot.Mouth.setPosition(.45);
+        robot.Mouth.setPosition(.5);
         // retract the slides
         robot.LExtendo.setPosition(-1);
         robot.RExtendo.setPosition(-1);
@@ -42,16 +43,27 @@ public class Teleop extends LinearOpMode {
         sleep(1000);
         robot.Claw.setPosition(0.2);
     }
+
+    public void align() {
+        // Close the claw
+        robot.Claw.setPosition(0.4);
+        // rotate to up position
+        robot.ClawRotate.setPosition(0.75);
+        // retract the slides
+        robot.LExtendo.setPosition(-.95);
+        robot.RExtendo.setPosition(-.95);
+    }
+
     public void Scoring() {
         // Collection Postition
-        robot.Neck.setPosition(-1);
+        robot.Neck.setPosition(0.96);
         // Open Bucket
         //sleep(250);
         //robot.BucketLid.setPosition(.75);
     }
     public void Collection() {
         // Scoring Position
-        robot.Neck.setPosition(1);
+        robot.Neck.setPosition(0.45);
         // Close Bucket
     }
 
@@ -101,15 +113,15 @@ public class Teleop extends LinearOpMode {
                 PowerCoefficient = 0.25;
             }
 
-            // Extra accuracy mode GamePad 2
-            if (gamepad1.left_bumper) {
-                PowerCoefficient2 = 0.25;
-            }
-
-            // Makes the motors move at full speed GamePad1
-            if (gamepad2.right_bumper) {
-                PowerCoefficient2 = 1.0;
-            }
+//            // Extra accuracy mode GamePad 2
+//            if (gamepad1.left_bumper) {
+//                PowerCoefficient2 = 0.25;
+//            }
+//
+//            // Makes the motors move at full speed GamePad1
+//            if (gamepad2.right_bumper) {
+//                PowerCoefficient2 = 1.0;
+//            }
 
 
 
@@ -149,7 +161,7 @@ public class Teleop extends LinearOpMode {
 //            }
 //            if(gamepad2.dpad_right){
 //                robot.ClawRotate.setPosition(0.35);
-//            }
+//            }++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
             // TODO: Replace this section/method of slide positioning with a PID Controller
             if (robot.RSlide.getCurrentPosition() > 10 && robot.LSlide.getCurrentPosition() > 10) {
@@ -159,15 +171,26 @@ public class Teleop extends LinearOpMode {
 
             // For the Slide(s)
             // TODO: make sure autos bring slides down at the end
-            if(gamepad2.y){
-                yCounter +=1;
-                sleep(1000);
+
+
+            if(gamepad2.ps) {
+                align();
+
             }
 
-            if(gamepad2.a){
-                slideHeight = 0;
-                Collection();
-                yCounter =0;
+            if(gamepad1.y) {
+                //int heightIncreaser = 100;
+                if (slideHeight < 3150) {
+                    slideHeight += 25;
+                }
+            }
+
+
+
+            if(gamepad1.a){
+                if (slideHeight > 30) {
+                    slideHeight -= 25;
+                }
             }
 
 
@@ -184,7 +207,7 @@ public class Teleop extends LinearOpMode {
             }
             if (gamepad2.x) {
                 // Open bucket
-                robot.Mouth.setPosition(.45);
+                robot.Mouth.setPosition(.7);
             }
             if(gamepad2.left_bumper){
                 Collection();
@@ -198,21 +221,8 @@ public class Teleop extends LinearOpMode {
 //                robot.LSlide.setPower(0);
 //                robot.RSlide.setPower(0);
 //            }
-            if (yCounter == 1) {
-                slideHeight = 1300;
-                 Scoring();
-            }
-//            if (yCounter == 2) {
-//                slideHeight = 1750;
-//               //  Scoring();
-//            }
-            if (yCounter == 2) {
-                slideHeight = 2750;
-                Scoring();
-            }
-            if (yCounter == 3) {
-                yCounter = 0;
-            }
+
+
 
             // change positions when y is pressed
 
@@ -255,7 +265,6 @@ public class Teleop extends LinearOpMode {
             telemetry.addData("LSlide", robot.LSlide.getCurrentPosition());
             telemetry.addData("RSlide", robot.RSlide.getCurrentPosition());
             telemetry.addData("slideHeight", slideHeight);
-            telemetry.addData("yCounter", yCounter);
             telemetry.update();
 
 
