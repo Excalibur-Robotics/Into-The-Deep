@@ -39,9 +39,6 @@ public class Teleop extends LinearOpMode {
         // retract the slides
         robot.LExtendo.setPosition(-1);
         robot.RExtendo.setPosition(-1);
-        // open the claw
-        sleep(1000);
-        robot.Claw.setPosition(0.2);
     }
 
     public void align() {
@@ -52,6 +49,8 @@ public class Teleop extends LinearOpMode {
         // retract the slides
         robot.LExtendo.setPosition(-.95);
         robot.RExtendo.setPosition(-.95);
+        //move the neck
+        robot.Neck.setPosition(.45);
     }
 
     public void Scoring() {
@@ -73,7 +72,7 @@ public class Teleop extends LinearOpMode {
         double slidesDefaultPower = 1;
 
         // Initialize the hardware variables from the HardwareMapFTC class.
-        robot.init(hardwareMap);
+            robot.init(hardwareMap);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -201,19 +200,19 @@ public class Teleop extends LinearOpMode {
                 // Open claw
                 robot.Claw.setPosition(0);
             }
-            if (gamepad2.b) {
+            if (gamepad2.x) {
                 // Close bucket
                 robot.Mouth.setPosition(1);
             }
-            if (gamepad2.x) {
+            if (gamepad2.b) {
                 // Open bucket
                 robot.Mouth.setPosition(.7);
             }
             if(gamepad2.left_bumper){
-                Collection();
+                Scoring();
             }
             if(gamepad2.right_bumper){
-                Scoring();
+                Collection();
             }
 
             // -------------------------------------------- //
