@@ -32,7 +32,7 @@ public class BlueSample extends OpMode {
 
     public DcMotorEx LSlide     = null;
     public DcMotorEx RSlide     = null;
-    public Servo LExtendo   = null;
+    public Servo     LExtendo   = null;
     public Servo     RExtendo   = null;
     public Servo     Mouth      = null;
     public Servo     Neck       = null;
