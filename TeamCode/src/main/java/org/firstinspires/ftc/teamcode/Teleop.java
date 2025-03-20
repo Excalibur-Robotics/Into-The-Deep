@@ -28,7 +28,7 @@ public class Teleop extends LinearOpMode {
         robot.LExtendo.setPosition(.25);
         robot.RExtendo.setPosition(.25);
         // rotate to down position
-        robot.ClawRotate.setPosition(0.35);
+        robot.ClawRotate.setPosition(0.30);
     }
     public void Retracto() {
         // Close the claw
@@ -48,7 +48,7 @@ public class Teleop extends LinearOpMode {
         robot.ClawRotate.setPosition(0.75);
         // retract the slides
         robot.LExtendo.setPosition(-.95);
-        robot.RExtendo.setPosition(-.95);
+        robot.RExtendo.setPosition(-.9);
         //move the neck
         robot.Neck.setPosition(.45);
     }
@@ -193,12 +193,12 @@ public class Teleop extends LinearOpMode {
             }
 
 
-            if (gamepad2.right_trigger > 0.5) robot.Claw.setPosition(0.4);
+            if (gamepad2.right_trigger > 0.5) robot.Claw.setPosition(1);
 
 
             if (gamepad2.left_trigger > 0.5) {
                 // Open claw
-                robot.Claw.setPosition(0);
+                robot.Claw.setPosition(.35);
             }
             if (gamepad2.x) {
                 // Close bucket
